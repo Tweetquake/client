@@ -1,11 +1,18 @@
-require(["esri/Map", "esri/views/MapView", "esri/widgets/BasemapToggle"], function(
+require(["esri/Map", "esri/views/MapView", "esri/widgets/BasemapToggle", "esri/layers/GeoJSONLayer"], function(
     Map,
     MapView,
-    BasemapToggle
+    BasemapToggle,
+    GeoJSONLayer
 ) {
+    // Create GeoJSONLayer
+    var geojsonLayer = new GeoJSONLayer({
+        url: "prova.geojson" //or try "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson"
+    });
+
     // Create the Map with an initial basemap
     var map = new Map({
-        basemap: "hybrid"
+        basemap: "hybrid",
+        layers: [geojsonLayer]
     });
 
     // Create the MapView and reference the Map in the instance
