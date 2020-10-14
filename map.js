@@ -6,7 +6,7 @@ require(["esri/Map", "esri/views/MapView", "esri/widgets/BasemapToggle", "esri/l
 ) {
     // Create GeoJSONLayer
     var geojsonLayer = new GeoJSONLayer({
-        url: "prova.geojson" //or try "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson"
+        url: "areaatrisk.geojson" //or try "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson"
     });
 
     // Create the Map with an initial basemap
