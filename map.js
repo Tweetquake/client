@@ -13,10 +13,20 @@ require(["esri/Map", "esri/views/MapView", "esri/widgets/BasemapToggle", "esri/l
         url: "seismogenicSources.geojson" //or try "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson"
     });
 
+    // Create GeoJSONLayer for the seismogenic sources
+    var geojsonLayer_road_nodes = new GeoJSONLayer({
+        url: "road_nodes.geojson"
+    });
+
+    // Create GeoJSONLayer for the seismogenic sources
+    var geojsonLayer_road_edges = new GeoJSONLayer({
+        url: "road_edges.geojson"
+    });
+
     // Create the Map with an initial basemap
     var map = new Map({
         basemap: "hybrid",
-        layers: [geojsonLayer_area,geojsonLayer_sources]
+        layers: [geojsonLayer_area,geojsonLayer_sources,geojsonLayer_road_nodes,geojsonLayer_road_edges]
     });
 
     // Create the MapView and reference the Map in the instance
