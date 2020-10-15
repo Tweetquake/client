@@ -1,8 +1,11 @@
-require(["esri/Map", "esri/views/MapView", "esri/widgets/BasemapToggle", "esri/layers/GeoJSONLayer"], function(
+require(["esri/Map", "esri/views/MapView", "esri/widgets/BasemapToggle",
+    "esri/layers/GeoJSONLayer", "esri/widgets/LayerList"],
+    function(
     Map,
     MapView,
     BasemapToggle,
-    GeoJSONLayer
+    GeoJSONLayer,
+    LayerList
 ) {
     // Create GeoJSONLayer for the area at risk
     var geojsonLayer_area = new GeoJSONLayer({
@@ -46,4 +49,13 @@ require(["esri/Map", "esri/views/MapView", "esri/widgets/BasemapToggle", "esri/l
 
     // Add widget to the top right corner of the view
     view.ui.add(toggle, "top-right");
+
+    view.when(function () {
+        var layerList = new LayerList({
+            view: view
+        });
+
+        // Add widget to the bottom right corner of the view
+        view.ui.add(layerList, "bottom-right");
+    });
 });
