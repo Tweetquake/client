@@ -7,17 +7,39 @@ require(["esri/Map", "esri/views/MapView", "esri/widgets/BasemapToggle",
     GeoJSONLayer,
     LayerList
 ) {
+    //Create templates for the layers
+    //Area at risk template
+    const template_ar = {
+        title: "Area a rischio",
+        //content: "Comune di {comune}",
+    };
+    //Seismogenic sources template
+    const template_ss = {
+        title: "Faglie attive candidate",
+        //content: "",
+    };
+    //Provincial capitals
+    const template_pc = {
+        title: "Capoluogo di provincia",
+        content: "Comune di {comune}",
+    };
+
     // Create GeoJSONLayer for the area at risk
     var geojsonLayer_area = new GeoJSONLayer({
-        url: "areaAtRisk.geojson"
+        url: "areaAtRisk.geojson",
+        popupTemplate: template_ar
     });
+
     // Create GeoJSONLayer for the seismogenic sources
     var geojsonLayer_sources = new GeoJSONLayer({
-        url: "seismogenicSources.geojson"
+        url: "seismogenicSources.geojson",
+        popupTemplate: template_ss
     });
+
     // Create GeoJSONLayer for the provincial capitals
     var geojsonLayer_capitals = new GeoJSONLayer({
-        url: "provincial_capitals.geojson"
+        url: "provincial_capitals.geojson",
+        popupTemplate: template_pc
     });
 
     // Create GeoJSONLayer for the seismogenic sources
