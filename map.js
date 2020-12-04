@@ -10,13 +10,12 @@ require(["esri/Map", "esri/views/MapView", "esri/widgets/BasemapToggle",
     //Create templates for the layers
     //Area at risk template
     const template_ar = {
-        title: "Area a rischio",
-        //content: "Comune di {comune}",
+        title: "Area a rischio"
     };
     //Seismogenic sources template
     const template_ss = {
         title: "Faglie attive candidate",
-        //content: "",
+        content: "Probabilità: {probability}",
     };
     //Provincial capitals
     const template_pc = {
@@ -24,15 +23,23 @@ require(["esri/Map", "esri/views/MapView", "esri/widgets/BasemapToggle",
         content: "Comune di {comune}",
     };
 
+    //generic template
+    const generic_template = {
+        title: "{name}"
+    }
+
     // Create GeoJSONLayer for the area at risk
     var geojsonLayer_area = new GeoJSONLayer({
-        url: "areaAtRisk.geojson",
-        popupTemplate: template_ar
+        url: "area_at_risk.geojson",
+        popupTemplate: {
+            title: "Area a rischio",
+            content: "Popolazione totale: {population}"
+        }
     });
 
     // Create GeoJSONLayer for the seismogenic sources
     var geojsonLayer_sources = new GeoJSONLayer({
-        url: "seismogenicSources.geojson",
+        url: "faults.geojson",
         popupTemplate: template_ss
     });
 
@@ -44,7 +51,8 @@ require(["esri/Map", "esri/views/MapView", "esri/widgets/BasemapToggle",
 
     // Create GeoJSONLayer for the seismogenic sources
     var geojsonLayer_road_nodes = new GeoJSONLayer({
-        url: "road_nodes.geojson"
+        url: "municipalities.geojson",
+        popupTemplate:generic_template
     });
 
     // Create GeoJSONLayer for the seismogenic sources
