@@ -49,6 +49,15 @@ require(["esri/Map", "esri/views/MapView", "esri/widgets/BasemapToggle",
         popupTemplate: template_pc
     });
 
+    // Create GeoJSONLayer for tweets
+    var geojsonLayer_tweets = new GeoJSONLayer({
+        url: "tweets.geojson",
+        popupTemplate: {
+            title: "Tweet",
+            content: "Lo ha pubblicato {author} a {place} e dice: {text}"
+        }
+    });
+
     // Create GeoJSONLayer for the seismogenic sources
     var geojsonLayer_road_nodes = new GeoJSONLayer({
         url: "municipalities.geojson",
@@ -63,7 +72,7 @@ require(["esri/Map", "esri/views/MapView", "esri/widgets/BasemapToggle",
     // Create the Map with an initial basemap
     var map = new Map({
         basemap: "hybrid",
-        layers: [geojsonLayer_area,geojsonLayer_sources,geojsonLayer_capitals,geojsonLayer_road_nodes,geojsonLayer_road_edges]
+        layers: [geojsonLayer_area,geojsonLayer_sources,geojsonLayer_capitals,geojsonLayer_tweets,geojsonLayer_road_nodes,geojsonLayer_road_edges]
     });
 
     // Create the MapView and reference the Map in the instance

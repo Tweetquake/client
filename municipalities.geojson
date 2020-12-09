@@ -1,6 +1,6 @@
 {
 "type": "FeatureCollection",
-"name": "server\/geoJSON_creation\/geojson_data\/municipalities.geojson",
+"name": "Municipalities",
 "features": [
 { "type": "Feature", "properties": { "name": "Vittorito", "population": "898", "province": "AQ", "state": "IT" }, "geometry": { "type": "Point", "coordinates": [ 13.8167, 42.12703 ] } },
 { "type": "Feature", "properties": { "name": "Viticuso", "population": "348", "province": "FR", "state": "IT" }, "geometry": { "type": "Point", "coordinates": [ 13.97027, 41.52475 ] } },
