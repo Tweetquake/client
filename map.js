@@ -79,30 +79,21 @@ require(["esri/Map", "esri/views/MapView", "esri/widgets/BasemapToggle",
 
     // Municipalities renderer
     const renderer_municipalities = {
-    type: "simple",
-    symbol: {
-        type: "simple-marker",
-        color: "red",
-        outline: {
-            color: "white"
-        }
-    },
-    visualVariables: [{
-            type: "size",
-            field: "population",
-            stops: [
-                {
-                    value: 100,
-                    size: "4px"
-                },
-                {
-                    value: 40000,
-                    size: "20px"
-                }
-            ]
-        }
-    ]
-};
+        type: "simple",
+        symbol: {
+            type: "simple-marker",
+            color: "red",
+            outline: {color: "white"}
+        },
+        visualVariables: [{
+                type: "size",
+                field: "population",
+                stops: [
+                    {value: 100, size: "4px"},
+                    {value: 40000, size: "20px"}
+                ]
+        }]
+    };
 
     // Create GeoJSON layers
     // Create GeoJSONLayer for tweets
