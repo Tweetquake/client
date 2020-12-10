@@ -7,72 +7,85 @@ require(["esri/Map", "esri/views/MapView", "esri/widgets/BasemapToggle",
     GeoJSONLayer,
     LayerList
 ) {
-    //Create templates for the layers
-    //Area at risk template
-    const template_ar = {
-        title: "Area a rischio"
+    // Create templates for the layers
+    // Tweets template
+    const template_tweets = {
+            title: "Tweet di {author} da {place}, {time_posted}",
+            content: "'{text}'",
+            fieldInfos: [
+                {
+                    fieldName: "time_posted",
+                    format: {
+                        dateFormat: "long-month-day-year-short-time-24"
+                    }
+                }]
     };
-    //Seismogenic sources template
-    const template_ss = {
+    // Area at risk template
+    const template_risking_area = {
+        title: "Area a rischio",
+        content: "Popolazione totale: {population}"
+    };
+    // Seismogenic faults template
+    const template_faults = {
         title: "Faglie attive candidate",
         content: "Probabilità: {probability}",
     };
-    //Provincial capitals
-    const template_pc = {
-        title: "Capoluogo di provincia",
-        content: "Comune di {comune}",
+    // Municipalities at risk template
+    const template_municipalities = {
+        title: "Comune di {name} ({province})",
+        content: "Numero di abitanti: {population}"
     };
 
-    //generic template
-    const generic_template = {
-        title: "{name}"
+    // Create renderers for the layers
+    // Tweets renderer
+    const renderer_tweets = {
+        type: "simple",
+        symbol: {
+            type: "simple-marker",
+            size: 6,
+            color: "0ED2F9",
+            outline: {
+                width: 0.5,
+                color: "white"
+            }
+        }
     }
 
-    // Create GeoJSONLayer for the area at risk
-    var geojsonLayer_area = new GeoJSONLayer({
-        url: "area_at_risk.geojson",
-        popupTemplate: {
-            title: "Area a rischio",
-            content: "Popolazione totale: {population}"
-        }
-    });
-
-    // Create GeoJSONLayer for the seismogenic sources
-    var geojsonLayer_sources = new GeoJSONLayer({
-        url: "faults.geojson",
-        popupTemplate: template_ss
-    });
-
-    // Create GeoJSONLayer for the provincial capitals
-    var geojsonLayer_capitals = new GeoJSONLayer({
-        url: "provincial_capitals.geojson",
-        popupTemplate: template_pc
-    });
-
+    // Create GeoJSON layers
     // Create GeoJSONLayer for tweets
     var geojsonLayer_tweets = new GeoJSONLayer({
         url: "tweets.geojson",
-        popupTemplate: {
-            title: "Tweet",
-            content: "Lo ha pubblicato {author} a {place} e dice: {text}"
-        }
+        title: 'Tweets',
+        popupTemplate: template_tweets,
+        renderer: renderer_tweets
     });
 
-    // Create GeoJSONLayer for the seismogenic sources
-    var geojsonLayer_road_nodes = new GeoJSONLayer({
+    // Create GeoJSONLayer for seismogenic faults
+    var geojsonLayer_faults = new GeoJSONLayer({
+        url: "faults.geojson",
+        title: 'Seismogenic Faults',
+        popupTemplate: template_faults
+    });
+
+    // Create GeoJSONLayer for area at risk
+    var geojsonLayer_risking_area = new GeoJSONLayer({
+        url: "area_at_risk.geojson",
+        title: 'Risking Area',
+        popupTemplate: template_risking_area
+    });
+
+    // Create GeoJSONLayer for municipalities at risk
+    var geojsonLayer_municipalities = new GeoJSONLayer({
         url: "municipalities.geojson",
-        popupTemplate:generic_template
+        title: 'Municipalities',
+        popupTemplate: template_municipalities
     });
 
-    // Create GeoJSONLayer for the seismogenic sources
-    var geojsonLayer_road_edges = new GeoJSONLayer({
-        url: "road_edges.geojson"
-    });
 
     // Create the Map with an initial basemap
     var map = new Map({
         basemap: "hybrid",
-        layers: [geojsonLayer_area,geojsonLayer_sources,geojsonLayer_capitals,geojsonLayer_tweets,geojsonLayer_road_nodes,geojsonLayer_road_edges]
+        layers: [geojsonLayer_risking_area,geojsonLayer_faults,geojsonLayer_municipalities,geojsonLayer_tweets]
     });
 
     // Create the MapView and reference the Map in the instance
@@ -90,16 +103,16 @@ require(["esri/Map", "esri/views/MapView", "esri/widgets/BasemapToggle",
         nextBasemap: "osm" // allows for toggling to the 'osm' basemap
     });
 
+    var layerList = new LayerList({
+        view: view,
+
+    });
+
     // Add widget to the top right corner of the view
     view.ui.add(toggle, "top-right");
 
-    view.when(function () {
-        var layerList = new LayerList({
-            view: view
-        });
+    // Add widget to the bottom right corner of the view
+    view.ui.add(layerList, "bottom-right");
 
-        // Add widget to the bottom right corner of the view
-        view.ui.add(layerList, "bottom-right");
-    });
     view.padding.left = 320;
 });
